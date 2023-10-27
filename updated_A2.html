@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Embedding Vega-Lite</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.16.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+  </head>
+  <body>
+    <div id="vis"></div>
+    
+    <div style="text-align:right;">
+    <script type="text/javascript">
+        
+      var combined = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        
+        data: {
+          "url":"https://raw.githubusercontent.com/PalGitts/ELL824/main/HW_Excel.csv"
+        },
+
+        vconcat: [
+          {
+            "title": {
+                  "text": "Q2: Create a Bar Graph showing Rep vs Total and sort the data by Total.",
+                  "anchor": "middle", "orient": "top"
+                  },
+                  mark: { "type":"bar", "cornerRadiusEnd": 5},
+
+                  encoding: {
+                    x: {field: "Rep", sort:"-y"},
+                    y: {aggregate: "sum", field:"Total"},
+                    "color": {"aggregate": "sum", "field": "Total"}
+                  }
+          }, // Q2
+          {
+            "title": {
+                  "text": "Q3: Create a Pie Chart showing Item and Units.",
+                  "anchor": "middle", "orient": "top"
+                  },
+            
+                mark: {type: "arc"},
+                encoding: {
+                  theta: {field: "Units", type: "quantitative",aggregate: "sum"},
+                  color: {field: "Item", type: "nominal"}
+                }
+          }, // Q3
+          {
+                "layer": [
+                {
+                  "title": {
+                          "text": "Q4: Create a view showing the correlation between Units and Unit Cost. Color by Item.",
+                          "anchor": "middle", "orient": "top"
+                          },
+
+                  "mark": {"type": "point", "filled": true},
+                  "encoding": {
+                    "x": {"field": "Units", "type": "quantitative"},
+                    "y": {"field": "UnitCost", "type": "quantitative"},
+                    color: {field: "Item", type: "nominal",legend: null},
+                  }
+                },
+              {
+                "mark": {"type": "line", "color": "firebrick"},
+                "transform": [
+                  {"regression": "UnitCost", "on": "Units"}
+                ],
+                "encoding": {
+                  "x": {"field": "Units", "type": "quantitative"},
+                  "y": {"field": "UnitCost", "type": "quantitative"}
+                }
+              },
+              {
+                "transform": [
+                  {
+                    "regression": "UnitCost",
+                    "on": "Units",
+                    "params": true
+                  },
+                  {"calculate": "'R²: '+format(datum.rSquared, '.2f')", "as": "R2"}
+                ],
+                "mark": {
+                  "type": "text",
+                  "color": "firebrick",
+                  "x": "width",
+                  "align": "right",
+                  "y": -5
+                },
+                "encoding": {"text": {"type": "nominal", "field": "R2"}}
+              }
+          ]
+      }, //Q4
+      {
+            "title": {
+                  "text": "Q5 (version 1): Create a line graph showing how the Total varied over time (year wise).",
+                  "anchor": "middle", "orient": "top"
+                  },
+            mark: {
+              type: "line"
+            },
+            encoding: {
+              y: {field: "Total", type: "quantitative",aggregate: 'sum'},
+              x: {field: "OrderDate",timeUnit: "year",type: "temporal", axis: {labelAngle: 5}},
+              "color": {"value": "black"},
+            }
+      }, // Q5
+      {
+            "title": {
+                  "text": "Q5 (version 2): Create a line graph showing how the Total varied over time (month wise).",
+                  "anchor": "middle", "orient": "top"
+                  },
+            mark: {
+              type: "line"
+            },
+            encoding: {
+              y: {field: "Total", type: "quantitative",aggregate: 'sum'},
+              x: {field: "OrderDate",timeUnit: "month",type: "temporal", axis: {labelAngle: 5}},
+              "color": {"value": "green"},
+            }
+      }, // Q5
+      
+      {
+        layer: [
+
+        {
+          mark: "bar",
+          "title": {
+            "text": "Q6 (version 1): Create a Histogram of the Units. Add an overlay of the global mean. ( Without bin )",
+            "anchor": "middle", "orient": "top"
+          },
+          encoding: {
+            
+            x: {
+              bin: false,
+              field: "Units"
+            },
+            y: {aggregate: "count",axis: {orient: "left", title: "Count"}}
+
+          }
+
+        },
+        {
+          mark: "rule",
+          encoding: {
+            y: {field: "Units", aggregate: "mean", axis: {orient: "right"} },
+            size: {value: 0.5},
+            "color": {"value": "red"},
+
+
+          }
+        }
+
+        ],
+        resolve: {scale: {y: "independent"}}
+      }, // Q6
+      {
+        layer: [
+
+        {
+          mark: "bar",
+          "title": {
+            "text": "Q6 (version 2): Create a Histogram of the Units. Add an overlay of the global mean. ( With bin )",
+            "anchor": "middle", "orient": "top"
+          },
+          encoding: {
+            
+            x: {
+              bin: true,
+              field: "Units"
+            },
+            y: {aggregate: "count",axis: {orient: "left", title: "Count"}}
+
+          }
+
+        },
+        {
+          mark: "rule",
+          encoding: {
+            y: {field: "Units", aggregate: "mean", axis: {orient: "right"} },
+            size: {value: 0.5},
+            "color": {"value": "red"},
+
+
+          }
+        }
+
+        ],
+        resolve: {scale: {y: "independent"}}
+      } // Q6
+
+        ]
+    }
+      vegaEmbed("#vis", combined);
+    </script>
+  </div>
+  </body>
+</html>
