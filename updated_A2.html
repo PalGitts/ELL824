@@ -25,7 +25,7 @@
                   "text": "Q2: Create a Bar Graph showing Rep vs Total and sort the data by Total.",
                   "anchor": "middle", "orient": "top"
                   },
-                  mark: { "type":"bar", "cornerRadiusEnd": 5},
+                  mark: { "type":"bar", "cornerRadiusEnd": 5, "color":"silver"},
 
                   encoding: {
                     x: {field: "Rep", sort:"-y"},
@@ -39,10 +39,10 @@
                   "anchor": "middle", "orient": "top"
                   },
             
-                mark: {type: "arc"},
+                mark: {type: "arc", "tooltip": true},
                 encoding: {
                   theta: {field: "Units", type: "quantitative",aggregate: "sum"},
-                  color: {field: "Item", type: "nominal"}
+                  color: {field: "Item", type: "nominal", "stack": true}
                 }
           }, // Q3
           {
@@ -114,7 +114,7 @@
             },
             encoding: {
               y: {field: "Total", type: "quantitative",aggregate: 'sum'},
-              x: {field: "OrderDate",timeUnit: "month",type: "temporal", axis: {labelAngle: 5}},
+              x: {field: "OrderDate",timeUnit: "yearmonth",type: "temporal", axis: {labelAngle: 1}},
               "color": {"value": "green"},
             }
       }, // Q5
