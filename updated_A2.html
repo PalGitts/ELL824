@@ -7,6 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
   </head>
   <body>
+    <div class="header">
+      <h2>ELL824: SELECTED TOPICS IN INFORMATION PROCESSING - II ( Data Visualization)</br>Name: Palash Nandi. (EEZ228472)</br></br></br></h2>
+      <h3></h3>
+    </div>
+    
     <div id="vis"></div>
     
     <div style="text-align:right;">
@@ -25,11 +30,13 @@
                   "text": "Q2: Create a Bar Graph showing Rep vs Total and sort the data by Total.",
                   "anchor": "middle", "orient": "top"
                   },
-                  mark: { "type":"bar", "cornerRadiusEnd": 5, "color":"silver"},
-
+                  mark: { "type":"bar", "cornerRadiusEnd": 5, "color":"silver", "tooltip": true },
+                  "width": 450,
+                  "height": 300,
                   encoding: {
                     x: {field: "Rep", sort:"-y"},
                     y: {aggregate: "sum", field:"Total"},
+                    
                     "color": {"aggregate": "sum", "field": "Total"}
                   }
           }, // Q2
@@ -40,6 +47,9 @@
                   },
             
                 mark: {type: "arc", "tooltip": true},
+                "width": 300,
+                "height": 300,
+                  
                 encoding: {
                   theta: {field: "Units", type: "quantitative",aggregate: "sum"},
                   color: {field: "Item", type: "nominal", "stack": true}
@@ -53,7 +63,10 @@
                           "anchor": "middle", "orient": "top"
                           },
 
-                  "mark": {"type": "point", "filled": true},
+                  "mark": {"type": "point", "filled": true, "tooltip": true},
+                  "width": 550,
+                  "height": 300,
+                  
                   "encoding": {
                     "x": {"field": "Units", "type": "quantitative"},
                     "y": {"field": "UnitCost", "type": "quantitative"},
@@ -61,7 +74,7 @@
                   }
                 },
               {
-                "mark": {"type": "line", "color": "firebrick"},
+                "mark": {"type": "line", "color": "firebrick", "tooltip": true},
                 "transform": [
                   {"regression": "UnitCost", "on": "Units"}
                 ],
@@ -84,7 +97,8 @@
                   "color": "firebrick",
                   "x": "width",
                   "align": "right",
-                  "y": -5
+                  "y": -5,
+                  "tooltip": true
                 },
                 "encoding": {"text": {"type": "nominal", "field": "R2"}}
               }
@@ -96,8 +110,11 @@
                   "anchor": "middle", "orient": "top"
                   },
             mark: {
-              type: "line"
+              type: "line", "tooltip": true
             },
+            "width": 450,
+            "height": 300,
+                  
             encoding: {
               y: {field: "Total", type: "quantitative",aggregate: 'sum'},
               x: {field: "OrderDate",timeUnit: "year",type: "temporal", axis: {labelAngle: 5}},
@@ -110,8 +127,11 @@
                   "anchor": "middle", "orient": "top"
                   },
             mark: {
-              type: "line"
+              type: "line", "tooltip": true
             },
+            "width": 450,
+            "height": 200,
+                  
             encoding: {
               y: {field: "Total", type: "quantitative",aggregate: 'sum'},
               x: {field: "OrderDate",timeUnit: "yearmonth",type: "temporal", axis: {labelAngle: 1}},
@@ -123,7 +143,7 @@
         layer: [
 
         {
-          mark: "bar",
+          mark: {"type": "bar", "tooltip": true },
           "title": {
             "text": "Q6 (version 1): Create a Histogram of the Units. Add an overlay of the global mean. ( Without bin )",
             "anchor": "middle", "orient": "top"
@@ -140,7 +160,7 @@
 
         },
         {
-          mark: "rule",
+          mark: { "type": "rule", "tooltip": true },
           encoding: {
             y: {field: "Units", aggregate: "mean", axis: {orient: "right"} },
             size: {value: 0.5},
@@ -157,7 +177,11 @@
         layer: [
 
         {
-          mark: "bar",
+          mark: { "type": "bar", "tooltip": true },
+          
+          "width": 450,
+          "height": 200,
+          
           "title": {
             "text": "Q6 (version 2): Create a Histogram of the Units. Add an overlay of the global mean. ( With bin )",
             "anchor": "middle", "orient": "top"
@@ -174,7 +198,10 @@
 
         },
         {
-          mark: "rule",
+          mark: { "type":"rule", "tooltip": true},
+          "width": 450,
+          "height": 200,
+          
           encoding: {
             y: {field: "Units", aggregate: "mean", axis: {orient: "right"} },
             size: {value: 0.5},
