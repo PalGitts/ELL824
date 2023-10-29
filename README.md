@@ -11,7 +11,13 @@
       <h2>ELL824: SELECTED TOPICS IN INFORMATION PROCESSING - II ( Data Visualization)</br>Name: Palash Nandi. (EEZ228472)</br></br></br></h2>
       <h3></h3>
     </div>
-    
+        <div>
+      <p>
+        &emsp;&emsp; <b>Q1.</b> Load the HW data.</br></br>
+        &emsp;&emsp; <b>Step 1:</b> HW_Excel.csv is uploaded at Github ( PalGitts / ELL824 ).</br>
+        &emsp;&emsp; <b>Step 2:</b> Raw link of the dataset is used in VegaLite-Emb code to fetch the data.</br>
+      </p>
+    </div>
     <div id="vis"></div>
     
     <div style="text-align:right;">
